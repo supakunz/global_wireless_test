@@ -1,16 +1,18 @@
-import localFont from "next/font/local";
+import { DM_Sans, Inter } from 'next/font/google'
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { theme } from '../theme/theme';
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const dmSans = DM_Sans({
+  subsets:['latin'],
+  variable:'--font-dmsans'
+})
+
+const inter = Inter({
+  subsets:['latin'],
+  variable:'--font-inter'
+})
 
 export const metadata = {
   title: "Create Next App",
@@ -21,9 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${dmSans.variable} ${inter.variable} antialiased`}
       >
-        {children}
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
       </body>
     </html>
   );
