@@ -1,12 +1,14 @@
-import { SyntheticEvent, forwardRef, useState } from 'react';
-import { TextField, InputAdornment, IconButton, TextFieldProps } from '@mui/material';
-import View from 'components/icons/authentication/View';
-import EyeClosed from 'components/icons/authentication/EyeClosed';
+'use client'
 
-const PasswordTextField = forwardRef<HTMLDivElement, TextFieldProps>((props, ref) => {
+import { forwardRef, useState } from 'react';
+import { TextField, InputAdornment, IconButton } from '@mui/material';
+import View from '../icons/authentication/View';
+import EyeClosed from '../icons/authentication/EyeClosed';
+
+const PasswordTextField = forwardRef((props, ref) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const handlePasswordVisibility = (event: SyntheticEvent) => {
+  const handlePasswordVisibility = (event) => {
     event.preventDefault();
     setIsPasswordVisible(!isPasswordVisible);
   };

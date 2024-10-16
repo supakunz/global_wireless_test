@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { PropsWithChildren, useState } from 'react';
+import { useState } from 'react';
 import { Box, Toolbar, Stack } from '@mui/material';
 import VerticalNavbar from '../../components/drawer/VerticalNavbar';
 import TopBar from '../../components/topbar/TopBar';
