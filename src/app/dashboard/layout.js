@@ -48,6 +48,7 @@ const drawerWidth = 248;
         })}
       >
         <Toolbar />
+        
         {children}
         <Footer />
       </Box>

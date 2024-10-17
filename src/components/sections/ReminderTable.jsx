@@ -6,65 +6,72 @@ import IconifyIcon from '../../components/base/IconifyIcon';
 import SearchFilter from '../../components/common/SearchFilter';
 import CustomPagination from '../../components/common/CustomPagination';
 import { columns, rows } from '../../data/reminderTableData';
+import AddProject from '../addproject/AddProject';
+import { useState } from 'react';
 
 const ReminderTable = () => {
+  let [isOpen, setIsOpen] = useState(false)
   const apiRef = useGridApiRef();
 
   return (
-    <Paper
-      sx={(theme) => ({
-        p: theme.spacing(2, 4.5),
-        width: 1,
-      })}
-    >
-      <Stack
-        direction={{ xs: 'column', sm: 'row' }}
-        alignItems="center"
-        justifyContent="space-between"
-        spacing={2}
-      >
-        <Typography variant="h5" color="common.black">
-          Reminder
-        </Typography>
-
-        <SearchFilter apiRef={apiRef} />
-
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={(theme) => ({
-            p: theme.spacing(0.625, 1.5),
-            borderRadius: 1.5,
-          })}
-          startIcon={<IconifyIcon icon="heroicons-solid:plus" />}
-        >
-          <Typography variant="body2">Add New</Typography>
-        </Button>
-      </Stack>
-
-      <Box
-        sx={{
-          height: 380,
+    <>
+      <Paper
+        sx={(theme) => ({
+          p: theme.spacing(2, 4.5),
           width: 1,
-          mt: 1.75,
-        }}
+        })}
       >
-        <DataGrid
-          apiRef={apiRef}
-          columns={columns}
-          rows={rows}
-          rowHeight={60}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems="center"
+          justifyContent="space-between"
+          spacing={2}
+        >
+          <Typography variant="h5" color="common.black">
+            Reminder
+          </Typography>
+
+          <SearchFilter apiRef={apiRef} />
+
+          <Button
+            onClick={() => setIsOpen(true)}
+            variant="contained"
+            color="secondary"
+            sx={(theme) => ({
+              p: theme.spacing(0.625, 1.5),
+              borderRadius: 1.5,
+            })}
+            startIcon={<IconifyIcon icon="heroicons-solid:plus" />}
+          >
+            <Typography variant="body2">Add New</Typography>
+          </Button>
+        </Stack>
+
+        <Box
+          sx={{
+            height: 380,
+            width: 1,
+            mt: 1.75,
           }}
-        />
-      </Box>
-      <CustomPagination apiRef={apiRef} />
-    </Paper>
+        >
+          <DataGrid
+            apiRef={apiRef}
+            columns={columns}
+            rows={rows}
+            rowHeight={60}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+          />
+        </Box>
+        <CustomPagination apiRef={apiRef} />
+      </Paper>
+      <AddProject isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   );
 };
 
