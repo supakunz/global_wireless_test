@@ -1,10 +1,8 @@
 import { TextField } from '@mui/material';
-import { GridApiCommunity } from '@mui/x-data-grid/internals';
-import Search from 'components/icons/common/Search';
-import { ChangeEvent, MutableRefObject } from 'react';
+import Search from '../icons/common/Search';
 
-const SearchFilter = ({ apiRef }: { apiRef: MutableRefObject<GridApiCommunity> }) => {
-  const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
+const SearchFilter = ({ apiRef }) => {
+  const handleFilter = (event) => {
     const value = event.target.value;
     const searchText = value.toLowerCase();
     apiRef.current.setQuickFilterValues([searchText]);

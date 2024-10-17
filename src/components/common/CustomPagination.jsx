@@ -5,10 +5,9 @@ import {
   useGridSelector,
   gridPageSizeSelector,
 } from '@mui/x-data-grid';
-import { GridApiCommunity } from '@mui/x-data-grid/internals';
-import { MutableRefObject } from 'react';
 
-const CustomPagination = ({ apiRef }: { apiRef: MutableRefObject<GridApiCommunity> }) => {
+
+const CustomPagination = ({ apiRef }) => {
   const page = useGridSelector(apiRef, gridPageSelector);
   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
   const pageSize = useGridSelector(apiRef, gridPageSizeSelector);

@@ -5,3 +5,12 @@
 * {
   font-family: var(--font-dmsans), var(--font-inter) !important;
 }
+
+/* Button Action Dashboard Page */
+.edit_btn {
+  @apply cursor-pointer bg-slate-500 p-[10px_20px] rounded-lg text-white;
+}
+
+.remove_btn {
+  @apply cursor-pointer bg-red-500 p-[10px_20px] rounded-lg text-white ml-2;
+}

@@ -15,6 +15,7 @@
     "@iconify/react": "^5.0.2",
     "@mui/material": "^6.1.4",
     "@mui/material-nextjs": "^6.1.4",
+    "@mui/x-data-grid": "^7.20.0",
     "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
