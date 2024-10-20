@@ -4,8 +4,16 @@ import Image from "next/image";
 const ProductImage = ({ image_name }) => {
   console.log(image_name);
   return (
-    <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
-      <Image width={70} height={70} src={`/file/${image_name}`} />
+    <div className="h-full py-1">
+      <div className="h-full relative w-[90px]">
+        <Image
+          alt="image_product"
+          fill={true}
+          layout={"fill"}
+          objectFit={"contain"}
+          src={`/file/${image_name}`}
+        />
+      </div>
     </div>
   );
 };

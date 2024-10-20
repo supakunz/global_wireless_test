@@ -61,7 +61,7 @@ const ReminderTable = () => {
 
         <Box
           sx={{
-            height: 380,
+            height: 480, //*Product Table height*
             width: 1,
             mt: 1.75,
           }}
@@ -70,7 +70,7 @@ const ReminderTable = () => {
             apiRef={apiRef}
             columns={columns}
             rows={productData} // ** Data from API ** #mockup -> rows
-            rowHeight={60}
+            rowHeight={80}
             initialState={{
               pagination: {
                 paginationModel: {
