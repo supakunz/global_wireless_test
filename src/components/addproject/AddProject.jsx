@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 "use client";
 
 import { Fragment, useState } from "react";
@@ -6,32 +7,59 @@ import TextField from "@mui/material/TextField";
 import upload_area from "../../assets/upload_area.svg";
 import Image from "next/image";
 import Button from "@mui/material/Button";
+import { create, getdata } from "@/functions/product";
 
-const AddProject = ({ isOpen, setIsOpen }) => {
+const AddProject = ({ Data, isOpen, setIsOpen }) => {
   const [data, setData] = useState({
     name: "",
     price: "",
-    description: "",
+    detail: "",
   });
   const [image, setImage] = useState(false);
 
-  const imageHandler = (e) => {
-    setImage(e.target.files[0]);
-    console.log(image);
-  };
-
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    if (e.target.name === "file") {
+      //เมื่อมี file เข้ามาจะ set file ใน form data
+      setData({ ...data, [e.target.name]: e.target.files[0] });
+      setImage(e.target.files[0]);
+    } else {
+      setData({ ...data, [e.target.name]: e.target.value });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setData({
-      name: "",
-      price: "",
-      description: "",
-    });
-    console.log(data);
+    // console.log(data);
+    //**ก่อนที่จะส่งต้องส่ง form เป็น multipart/form-data */
+    const formWithImageData = new FormData();
+    for (const key in data) {
+      formWithImageData.append(key, data[key]);
+    }
+    // console.log(formWithImageData); //ไม่แสดงเพราะเป็นแบบ multipart/form-data
+    await create(formWithImageData)
+      .then((res) => {
+        setData({
+          name: "",
+          price: "",
+          detail: "",
+        });
+        setImage(false);
+        console.log(res.data.message);
+      })
+      .catch((err) => {
+        setData({
+          name: "",
+          price: "",
+          detail: "",
+        });
+        setImage(false);
+        console.log(err.response.data.message);
+      })
+      .finally(() => {
+        getdata()
+          .then((res) => Data(res.data.response))
+          .catch((err) => console.log(err));
+      });
   };
 
   return (
@@ -70,7 +98,7 @@ const AddProject = ({ isOpen, setIsOpen }) => {
                       setData({
                         name: "",
                         price: "",
-                        description: "",
+                        detail: "",
                       });
                     }}
                   >
@@ -82,24 +110,19 @@ const AddProject = ({ isOpen, setIsOpen }) => {
                     <label htmlFor="file-input">
                       <Image
                         src={image ? URL.createObjectURL(image) : upload_area}
+                        alt="file_image"
                         width={200}
                         height={200}
                         className="object-contain my-[15px] rounded-[10px]"
                       />
                     </label>
-                    <input
-                      onChange={imageHandler}
-                      className="box-border w-full h-[50px] rounded-[4px] pl-[15px] border-solid border-[1px] text-[14px] border-[#c3c3c3] text-[#7b7b7b]"
-                      type="file"
-                      name="image"
-                      id="file-input"
-                      hidden
-                    />
                   </div>
                   <div>
                     <form
                       onSubmit={handleSubmit}
                       className="flex flex-col gap-5 justify-center"
+                      encType="multipart/form-data"
+                      // *ต้องกำหนดให้ส่งเป็น multipart/form-data *
                     >
                       <TextField
                         required
@@ -120,10 +143,18 @@ const AddProject = ({ isOpen, setIsOpen }) => {
                       <TextField
                         required
                         id="outlined-required"
-                        name="description"
-                        label="Description"
+                        name="detail"
+                        label="Detail"
                         onChange={handleChange}
-                        value={data.description}
+                        value={data.detail}
+                      />
+                      <input
+                        onChange={handleChange}
+                        className="box-border w-full h-[50px] rounded-[4px] pl-[15px] border-solid border-[1px] text-[14px] border-[#c3c3c3] text-[#7b7b7b]"
+                        type="file"
+                        name="file"
+                        id="file-input"
+                        hidden
                       />
                       <Button variant="contained" size="large" type="submit">
                         Send

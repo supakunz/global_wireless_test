@@ -1,18 +1,27 @@
-'use client'
+"use client";
 
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
-import { DataGrid, useGridApiRef } from '@mui/x-data-grid';
-import IconifyIcon from '../../components/base/IconifyIcon';
-import SearchFilter from '../../components/common/SearchFilter';
-import CustomPagination from '../../components/common/CustomPagination';
-import { columns, rows } from '../../data/reminderTableData';
-import AddProject from '../addproject/AddProject';
-import { useState } from 'react';
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
+import IconifyIcon from "../../components/base/IconifyIcon";
+import SearchFilter from "../../components/common/SearchFilter";
+import CustomPagination from "../../components/common/CustomPagination";
+import { columns, rows } from "../../data/reminderTableData";
+import AddProject from "../addproject/AddProject";
+import { useEffect, useState } from "react";
+import { getdata } from "@/functions/product";
 
 const ReminderTable = () => {
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState([]);
   const apiRef = useGridApiRef();
 
+  useEffect(() => {
+    getdata()
+      .then((res) => setData(res.data.response))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // console.log(data);
   return (
     <>
       <Paper
@@ -22,7 +31,7 @@ const ReminderTable = () => {
         })}
       >
         <Stack
-          direction={{ xs: 'column', sm: 'row' }}
+          direction={{ xs: "column", sm: "row" }}
           alignItems="center"
           justifyContent="space-between"
           spacing={2}
@@ -57,7 +66,7 @@ const ReminderTable = () => {
           <DataGrid
             apiRef={apiRef}
             columns={columns}
-            rows={rows}
+            rows={data} // ** Data from API ** #mockup -> rows
             rowHeight={60}
             initialState={{
               pagination: {
@@ -70,7 +79,7 @@ const ReminderTable = () => {
         </Box>
         <CustomPagination apiRef={apiRef} />
       </Paper>
-      <AddProject isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddProject Data={setData} isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };
