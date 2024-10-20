@@ -4,17 +4,16 @@
 import { Fragment, useContext, useState } from "react";
 import { TransitionChild, Dialog, DialogPanel } from "@headlessui/react";
 import TextField from "@mui/material/TextField";
-import upload_area from "../../assets/upload_area.svg";
 import Image from "next/image";
 import Button from "@mui/material/Button";
-import { create, getdata } from "@/functions/product";
+import { getdata, update } from "@/functions/product";
 import { ProductContext } from "@/providers/ProductProvider";
 
-const AddProject = ({ isOpen, setIsOpen }) => {
+const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
   const [data, setData] = useState({
-    name: "",
-    price: "",
-    detail: "",
+    name: product_value.name,
+    price: product_value.price,
+    detail: product_value.detail,
   });
   const [image, setImage] = useState(false);
   const { setProductData } = useContext(ProductContext);
@@ -38,35 +37,28 @@ const AddProject = ({ isOpen, setIsOpen }) => {
       formWithImageData.append(key, data[key]);
     }
     // console.log(formWithImageData); //ไม่แสดงเพราะเป็นแบบ multipart/form-data
-    await create(formWithImageData)
+    //เพิ่มชื่อของไฟล์รูปเดิมส่งไปด้วย
+    formWithImageData.append("fileold", product_value.file);
+    await update(product_value.id, formWithImageData)
       .then((res) => {
-        setData({
-          name: "",
-          price: "",
-          detail: "",
-        });
-        setImage(false);
         console.log(res.data.message);
       })
       .catch((err) => {
-        setData({
-          name: "",
-          price: "",
-          detail: "",
-        });
-        setImage(false);
         console.log(err.response.data.message);
       })
       .finally(() => {
         getdata()
-          .then((res) => setProductData(res.data.response))
+          .then((res) => {
+            setProductData(res.data.response);
+            setEditToggle(false);
+          })
           .catch((err) => console.log(err));
       });
   };
 
   return (
     <div className="relative z-10 focus:outline-none test">
-      <Dialog open={isOpen} as="div" onClose={() => setIsOpen(false)}>
+      <Dialog open={editToggle} as="div" onClose={() => setEditToggle(false)}>
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
@@ -95,13 +87,7 @@ const AddProject = ({ isOpen, setIsOpen }) => {
                   <button
                     className="p-2 font-medium transition-opacity hover:opacity-60"
                     onClick={() => {
-                      setIsOpen(false);
-                      setImage(false);
-                      setData({
-                        name: "",
-                        price: "",
-                        detail: "",
-                      });
+                      setEditToggle(false);
                     }}
                   >
                     Close
@@ -111,7 +97,11 @@ const AddProject = ({ isOpen, setIsOpen }) => {
                   <div className="content-center">
                     <label htmlFor="file-input">
                       <Image
-                        src={image ? URL.createObjectURL(image) : upload_area}
+                        src={
+                          image
+                            ? URL.createObjectURL(image)
+                            : `/file/${product_value.file}`
+                        }
                         alt="file_image"
                         width={200}
                         height={200}
@@ -173,4 +163,4 @@ const AddProject = ({ isOpen, setIsOpen }) => {
   );
 };
 
-export default AddProject;
+export default EditProduct;

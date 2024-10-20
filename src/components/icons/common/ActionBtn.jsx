@@ -1,16 +1,24 @@
-import React, { useContext } from "react";
-import { ProductContext } from "@/providers/ProductProvider";
+import React, { useContext, useState } from "react";
 import { getdata, remove } from "@/functions/product";
+import EditProduct from "@/components/editproduct/EditProduct";
+import { ProductContext } from "@/providers/ProductProvider";
 
-const ActionBtn = ({ id }) => {
+const ActionBtn = ({ data }) => {
+  const [editToggle, setEditToggle] = useState(false);
   const { setProductData } = useContext(ProductContext);
+  // console.log(data);
   return (
     <div>
       <div>
-        <a className="edit_btn active:bg-slate-600">Edit</a>
+        <a
+          onClick={() => setEditToggle(true)}
+          className="edit_btn active:bg-slate-600"
+        >
+          Edit
+        </a>
         <a
           onClick={() => {
-            remove(id)
+            remove(data.id)
               .then((res) => console.log(res.data.message))
               .catch((err) => console.log(err.response.data.message))
               .finally(() => {
@@ -24,6 +32,11 @@ const ActionBtn = ({ id }) => {
           Delete
         </a>
       </div>
+      <EditProduct
+        editToggle={editToggle}
+        setEditToggle={setEditToggle}
+        product_value={data.row}
+      />
     </div>
   );
 };

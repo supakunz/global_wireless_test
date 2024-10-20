@@ -1,17 +1,46 @@
+import { NextResponse } from "next/server";
+import fs from 'fs';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
 import connect from "@/lib/connect";
 import Products from "@/models/model";
-import fs from 'fs';
-import { NextResponse } from "next/server";
+const pump = promisify(pipeline);
 
-export async function GET(req,{params}) {
+//Update data
+export async function PUT(req,{params}) {
   try {
-    return NextResponse.json({params:params.id})
-
+    connect() //Conect Database
+    const id = params.id
+    const formData = await req.formData(); //แปลงจาก Formdata เป็น Object
+    const file = formData.getAll('file')[0] //แยก object ของ file
+    const fileold = formData.getAll('fileold')[0] //แยก object ของ file
+    const data = {
+      name:formData.get('name'),
+      price:formData.get('price'),
+      detail:formData.get('detail')
+    }
+    if (file) {
+      //Generrate name image
+      const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E9) + '_' // Genชื่อไฟล์ที่ตั้ง
+      const filename = 'product_' + uniqueSuffix + file.name //ชื่อไฟล์
+      const filePath = `./public/file/${filename}`; // Create file path
+      //Create image of filePath
+      await pump(file.stream(), fs.createWriteStream(filePath));
+      // สร้าง file ใน object of data
+      data.file = filename
+      if (fileold != 'noimage.jpg') {
+        await fs.unlink('./public/file/'+fileold,(err) => console.log(err))
+      }
+    }
+    const updated = await Products.findOneAndUpdate({ _id: id }, data, { new: true })
+    return NextResponse.json({message:"Update Successfuly"})
   } catch (error) {
     console.log(error)
+    return NextResponse.json({ message: "Server Error" }, { status: 500 })
   }
 }
 
+//Delete data
 export async function DELETE(req,{params}) {
   try {
     connect()
@@ -27,7 +56,7 @@ export async function DELETE(req,{params}) {
     })
     }
     console.log(response)
-    return NextResponse.json({params:id})
+    return NextResponse.json({message:"Remove Successfuly"})
   } catch (error) {
     console.log(error)
     return NextResponse.json({ message: "Server Error" }, { status: 500 })

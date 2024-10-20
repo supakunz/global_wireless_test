@@ -10,11 +10,11 @@ import AddProject from "../addproject/AddProject";
 import { useContext, useEffect, useState } from "react";
 import { getdata } from "@/functions/product";
 import { ProductContext } from "@/providers/ProductProvider";
+// import EditProduct from "../editproduct/EditProduct";
 
 const ReminderTable = () => {
   let [isOpen, setIsOpen] = useState(false);
   const { setProductData, productData } = useContext(ProductContext);
-  // const [data, setProductData] = useState([]);
   const apiRef = useGridApiRef();
 
   useEffect(() => {

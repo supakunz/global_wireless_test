@@ -2,7 +2,6 @@
 import Image from "next/image";
 
 const ProductImage = ({ image_name }) => {
-  console.log(image_name);
   return (
     <div className="h-full py-1">
       <div className="h-full relative w-[90px]">

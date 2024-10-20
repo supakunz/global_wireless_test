@@ -1,6 +1,5 @@
 import ActionBtn from "@/components/icons/common/ActionBtn";
 import ProductImage from "@/components/icons/common/ProductImage";
-import { remove } from "@/functions/product";
 
 export const columns = [
   {
@@ -34,7 +33,7 @@ export const columns = [
     field: 'action',
     headerName: 'Action',
     flex: 0.8,
-    renderCell: (params) => <ActionBtn id={params.id}/>
+    renderCell: (params) => <ActionBtn data={params}/>
   },
 ];
 
