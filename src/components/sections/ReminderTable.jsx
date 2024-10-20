@@ -7,18 +7,21 @@ import SearchFilter from "../../components/common/SearchFilter";
 import CustomPagination from "../../components/common/CustomPagination";
 import { columns, rows } from "../../data/reminderTableData";
 import AddProject from "../addproject/AddProject";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getdata } from "@/functions/product";
+import { ProductContext } from "@/providers/ProductProvider";
 
 const ReminderTable = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const { setProductData, productData } = useContext(ProductContext);
+  // const [data, setProductData] = useState([]);
   const apiRef = useGridApiRef();
 
   useEffect(() => {
     getdata()
-      .then((res) => setData(res.data.response))
+      .then((res) => setProductData(res.data.response))
       .catch((err) => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // console.log(data);
@@ -66,7 +69,7 @@ const ReminderTable = () => {
           <DataGrid
             apiRef={apiRef}
             columns={columns}
-            rows={data} // ** Data from API ** #mockup -> rows
+            rows={productData} // ** Data from API ** #mockup -> rows
             rowHeight={60}
             initialState={{
               pagination: {
@@ -79,7 +82,7 @@ const ReminderTable = () => {
         </Box>
         <CustomPagination apiRef={apiRef} />
       </Paper>
-      <AddProject Data={setData} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddProject isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

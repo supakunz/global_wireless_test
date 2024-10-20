@@ -1,10 +1,14 @@
+import ActionBtn from "@/components/icons/common/ActionBtn";
+import ProductImage from "@/components/icons/common/ProductImage";
+import { remove } from "@/functions/product";
+
 export const columns = [
   {
     field: 'file',
     headerName: 'Image',
     flex: 1.5,
     minWidth: 200,
-    renderCell: (params) => <div style={{display:'flex',alignItems:'center',height:'100%'}}><img style={{width:'70px'}} src={params.value}/></div>
+    renderCell: (params) => <ProductImage image_name={params.value}/>
   },
   {
     field: 'name',
@@ -30,7 +34,7 @@ export const columns = [
     field: 'action',
     headerName: 'Action',
     flex: 0.8,
-    renderCell: () => <div style={{display:'flex',alignItems:'center',gap:'10px'}}><div><a className="edit_btn">Edit</a><a className="remove_btn">Delete</a></div></div>
+    renderCell: (params) => <ActionBtn id={params.id}/>
   },
 ];
 

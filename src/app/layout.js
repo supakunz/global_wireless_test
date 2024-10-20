@@ -3,6 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from '../theme/theme';
 import "./globals.css";
+import ProductProvider from '@/providers/ProductProvider';
 
 const dmSans = DM_Sans({
   subsets:['latin'],
@@ -25,10 +26,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${dmSans.variable} ${inter.variable} antialiased`}
       >
+        <ProductProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             {children}
           </ThemeProvider>
+        </ProductProvider>
       </body>
     </html>
   );

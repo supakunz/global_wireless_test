@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { TransitionChild, Dialog, DialogPanel } from "@headlessui/react";
 import TextField from "@mui/material/TextField";
 import upload_area from "../../assets/upload_area.svg";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import { create, getdata } from "@/functions/product";
+import { ProductContext } from "@/providers/ProductProvider";
 
 const AddProject = ({ Data, isOpen, setIsOpen }) => {
   const [data, setData] = useState({
@@ -16,6 +17,7 @@ const AddProject = ({ Data, isOpen, setIsOpen }) => {
     detail: "",
   });
   const [image, setImage] = useState(false);
+  const { setProductData } = useContext(ProductContext);
 
   const handleChange = (e) => {
     if (e.target.name === "file") {
@@ -57,7 +59,7 @@ const AddProject = ({ Data, isOpen, setIsOpen }) => {
       })
       .finally(() => {
         getdata()
-          .then((res) => Data(res.data.response))
+          .then((res) => setProductData(res.data.response))
           .catch((err) => console.log(err));
       });
   };
