@@ -14,12 +14,16 @@ import { ProductContext } from "@/providers/ProductProvider";
 
 const ReminderTable = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const { setProductData, productData } = useContext(ProductContext);
+  const { setProductData, productData, loading, setLoading } =
+    useContext(ProductContext);
   const apiRef = useGridApiRef();
 
   useEffect(() => {
     getdata()
-      .then((res) => setProductData(res.data.response))
+      .then((res) => {
+        setProductData(res.data.response);
+        setLoading(false);
+      })
       .catch((err) => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -71,11 +75,22 @@ const ReminderTable = () => {
             columns={columns}
             rows={productData} // ** Data from API ** #mockup -> rows
             rowHeight={80}
+            // {...data}
+            loading={loading} //loading #overlays MUI
+            slotProps={{
+              loadingOverlay: {
+                variant: "skeleton",
+                noRowsVariant: "skeleton",
+              },
+            }}
             initialState={{
               pagination: {
                 paginationModel: {
                   pageSize: 5,
                 },
+              },
+              pinnedColumns: {
+                left: ["desk"],
               },
             }}
           />

@@ -7,12 +7,15 @@ export const ProductContext = createContext(); //type ข้อมูลที�
 
 export default function ProductProvider({ children }) {
   const [productData, setProductData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   return (
     <ProductContext.Provider
       value={{
         setProductData,
         productData,
+        loading,
+        setLoading,
       }}
     >
       {children}
