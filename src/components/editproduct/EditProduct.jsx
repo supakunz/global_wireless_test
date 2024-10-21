@@ -8,6 +8,7 @@ import Image from "next/image";
 import Button from "@mui/material/Button";
 import { getdata, update } from "@/functions/product";
 import { ProductContext } from "@/providers/ProductProvider";
+import Swal from "sweetalert2";
 
 const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
   const [data, setData] = useState({
@@ -39,21 +40,37 @@ const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
     // console.log(formWithImageData); //ไม่แสดงเพราะเป็นแบบ multipart/form-data
     //เพิ่มชื่อของไฟล์รูปเดิมส่งไปด้วย
     formWithImageData.append("fileold", product_value.file);
-    await update(product_value.id, formWithImageData)
-      .then((res) => {
-        console.log(res.data.message);
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-      })
-      .finally(() => {
-        getdata()
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        //**Updata Product Data**
+        update(product_value.id, formWithImageData)
           .then((res) => {
-            setProductData(res.data.response);
-            setEditToggle(false);
+            Swal.fire("Saved!", "", "success");
+            console.log(res.data.message);
           })
-          .catch((err) => console.log(err));
-      });
+          .catch((err) => {
+            Swal.fire("Error!", "", "error");
+            console.log(err.response.data.message);
+          })
+          .finally(() => {
+            getdata()
+              .then((res) => {
+                setProductData(res.data.response);
+                setEditToggle(false);
+              })
+              .catch((err) => console.log(err));
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
   };
 
   return (

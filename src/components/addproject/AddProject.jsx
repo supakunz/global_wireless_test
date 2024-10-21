@@ -9,6 +9,7 @@ import Image from "next/image";
 import Button from "@mui/material/Button";
 import { create, getdata } from "@/functions/product";
 import { ProductContext } from "@/providers/ProductProvider";
+import Swal from "sweetalert2";
 
 const AddProject = ({ isOpen, setIsOpen }) => {
   const [data, setData] = useState({
@@ -38,24 +39,48 @@ const AddProject = ({ isOpen, setIsOpen }) => {
       formWithImageData.append(key, data[key]);
     }
     // console.log(formWithImageData); //ไม่แสดงเพราะเป็นแบบ multipart/form-data
+    Swal.fire({
+      title: "Loading...",
+      html: "Please wait...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading(null);
+      },
+    });
     await create(formWithImageData)
       .then((res) => {
+        console.log(res.data.message);
         setData({
           name: "",
           price: "",
           detail: "",
         });
         setImage(false);
-        console.log(res.data.message);
+        setIsOpen(false);
+        Swal.close();
+        Swal.fire({
+          title: "Successfuly!",
+          text: "Your product has been created.",
+          icon: "success",
+        });
       })
       .catch((err) => {
+        console.log(err.response.data.message);
         setData({
           name: "",
           price: "",
           detail: "",
         });
         setImage(false);
-        console.log(err.response.data.message);
+        setIsOpen(false);
+        Swal.close();
+        Swal.fire({
+          title: "Something Wrong!",
+          text: "Please try again later.",
+          icon: "error",
+        });
       })
       .finally(() => {
         getdata()
