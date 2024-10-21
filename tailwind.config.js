@@ -12,6 +12,9 @@ module.exports = {
         foreground: "var(--foreground)",
       },
     },
+    screens:{
+      'tablet':'900px'
+    }
   },
   plugins: [],
 };

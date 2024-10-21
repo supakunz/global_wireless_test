@@ -40,7 +40,7 @@ const ReminderTable = () => {
           spacing={2}
         >
           <Typography variant="h5" color="common.black">
-            Reminder
+            Products
           </Typography>
 
           <SearchFilter apiRef={apiRef} />

@@ -71,7 +71,7 @@ const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
           <div className="fixed inset-0 bg-gray-950/25" />
         </TransitionChild>
 
-        <div className="fixed inset-0 text-slate-700">
+        <div className="fixed inset-0 text-slate-700 tablet:left-[15.6rem]">
           <div className="grid min-h-full mx-2 place-items-center">
             <TransitionChild
               as={Fragment}

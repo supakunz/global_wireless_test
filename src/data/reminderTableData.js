@@ -5,8 +5,8 @@ export const columns = [
   {
     field: 'file',
     headerName: 'Image',
-    flex: 1.5,
-    minWidth: 200,
+    flex: 1.2,
+    minWidth: 180,
     renderCell: (params) => <ProductImage image_name={params.value}/>
   },
   {
@@ -33,6 +33,7 @@ export const columns = [
     field: 'action',
     headerName: 'Action',
     flex: 0.8,
+    minWidth: 152,
     renderCell: (params) => <ActionBtn data={params}/>
   },
 ];
