@@ -1,33 +1,27 @@
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import { useState } from 'react';
-import IconifyIcon from '../base/IconifyIcon';
-import { ListItemIcon, Menu, Typography } from '@mui/material';
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
+import IconifyIcon from "../base/IconifyIcon";
+import { ListItemIcon, Menu, Typography } from "@mui/material";
 
 const languageItems = [
   {
     id: 0,
-    value: 'ban',
-    label: 'Bengali',
-    icon: 'twemoji:flag-bangladesh',
+    value: "en",
+    label: "English",
+    icon: "twemoji:flag-england",
   },
   {
     id: 1,
-    value: 'en',
-    label: 'English',
-    icon: 'twemoji:flag-england',
-  },
-  {
-    id: 2,
-    value: 'fr',
-    label: 'French',
-    icon: 'twemoji:flag-france',
+    value: "th",
+    label: "Thailand",
+    icon: "twemoji:flag-thailand",
   },
 ];
 
 const LanguagePopover = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0); // language on start
   const open = Boolean(anchorEl);
 
   const handleClickItem = (event) => {
@@ -49,9 +43,9 @@ const LanguagePopover = () => {
         onClick={handleClickItem}
         color="inherit"
         aria-label="language"
-        aria-controls={open ? 'language-menu' : undefined}
+        aria-controls={open ? "language-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
       >
         <IconifyIcon icon={languageItems[selectedIndex].icon} />
       </IconButton>
@@ -61,8 +55,8 @@ const LanguagePopover = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {languageItems.map((languageItem) => (
           <MenuItem

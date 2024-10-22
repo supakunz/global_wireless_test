@@ -21,7 +21,7 @@ const DrawerList = () => {
             component="h1"
             sx={{ color: "neutral.darker" }}
           >
-            Motiv.
+            AdminZ
           </Typography>
         </Stack>
       </Toolbar>

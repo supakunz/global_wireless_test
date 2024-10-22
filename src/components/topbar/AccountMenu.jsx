@@ -1,23 +1,30 @@
-import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material';
-import avatar from '../../assets/avatar.webp';
-import IconifyIcon from '../base/IconifyIcon';
-import { useState } from 'react';
+import {
+  Avatar,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
+// import avatar from "../../assets/avatar.webp";
+import IconifyIcon from "../base/IconifyIcon";
+import { useState } from "react";
 
-const menuItems= [
+const menuItems = [
   {
     id: 0,
-    label: 'Profile',
-    icon: 'material-symbols:person',
+    label: "Profile",
+    icon: "material-symbols:person",
   },
   {
     id: 1,
-    label: 'My Account',
-    icon: 'material-symbols:account-box-sharp',
+    label: "My Account",
+    icon: "material-symbols:account-box-sharp",
   },
   {
     id: 2,
-    label: 'Logout',
-    icon: 'uiw:logout',
+    label: "Logout",
+    icon: "uiw:logout",
   },
 ];
 
@@ -39,11 +46,15 @@ const AccountMenu = () => {
         onClick={handleClick}
         color="inherit"
         aria-label="account"
-        aria-controls={open ? 'account-menu' : undefined}
+        aria-controls={open ? "account-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
       >
-        <Avatar sx={{ width: 40, height: 40 }} alt="avatar" src={avatar} />
+        <Avatar
+          sx={{ width: 40, height: 40 }}
+          alt="avatar"
+          // src="/avatar.webp" //path at public.
+        />
       </IconButton>
 
       <Menu
@@ -52,8 +63,8 @@ const AccountMenu = () => {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {menuItems.map((menuItem) => (
           <MenuItem key={menuItem.id} onClick={handleClose}>

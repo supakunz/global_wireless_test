@@ -21,7 +21,7 @@ const TopBar = ({ drawerWidth, onHandleDrawerToggle }) => {
         sx={{
           width: { md: `calc(100% - ${drawerWidth + 1}px)` },
           ml: { sm: `${drawerWidth}px` },
-          zIndex: "0",
+          zIndex: "1",
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
