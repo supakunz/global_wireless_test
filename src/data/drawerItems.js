@@ -94,7 +94,7 @@ export const drawerItems = [
     id: 11,
     icon: SignOut,
     title: 'Log out',
-    path: '#!',
+    // path: '/login',
     active: true,
     collapsible: false,
   },

@@ -4,6 +4,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from '../theme/theme';
 import "./globals.css";
 import ProductProvider from '@/providers/ProductProvider';
+import { AuthProvider } from '@/providers/Providers';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const dmSans = DM_Sans({
   subsets:['latin'],
@@ -28,8 +31,11 @@ export default function RootLayout({ children }) {
       >
         <ProductProvider>
           <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {children}
+            <AuthProvider>
+              <ToastContainer />
+              <CssBaseline />
+              {children}
+            </AuthProvider>
           </ThemeProvider>
         </ProductProvider>
       </body>

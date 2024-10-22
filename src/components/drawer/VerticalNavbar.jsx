@@ -1,6 +1,5 @@
-import { Box, Drawer } from '@mui/material';
-import DrawerList from './DrawerList';
-
+import { Box, Drawer } from "@mui/material";
+import DrawerList from "./DrawerList";
 
 const VerticalNavbar = ({
   drawerWidth,
@@ -23,8 +22,8 @@ const VerticalNavbar = ({
           keepMounted: true, // Better open performance on mobile.
         }}
         sx={{
-          display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
       >
         <DrawerList />
@@ -33,8 +32,8 @@ const VerticalNavbar = ({
       <Drawer
         variant="permanent"
         sx={{
-          display: { xs: 'none', md: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          display: { xs: "none", md: "block" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
         open
       >

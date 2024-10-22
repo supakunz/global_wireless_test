@@ -1,8 +1,8 @@
-import { Link, List, Stack, Toolbar, Typography } from '@mui/material';
-import { drawerItems } from '../../data/drawerItems';
-import Logo from '../../components/icons/common/Logo';
+import { Link, List, Stack, Toolbar, Typography } from "@mui/material";
+import { drawerItems } from "../../data/drawerItems";
+import Logo from "../../components/icons/common/Logo";
 // import { rootPaths } from 'routes/paths';
-import DrawerListItem from './DrawerListItem';
+import DrawerListItem from "./DrawerListItem";
 
 const DrawerList = () => {
   return (
@@ -16,7 +16,11 @@ const DrawerList = () => {
           columnGap={1.5}
         >
           <Logo sx={{ fontSize: 27 }} />
-          <Typography variant="h2" component="h1" sx={{ color: 'neutral.darker' }}>
+          <Typography
+            variant="h2"
+            component="h1"
+            sx={{ color: "neutral.darker" }}
+          >
             Motiv.
           </Typography>
         </Stack>
@@ -26,16 +30,17 @@ const DrawerList = () => {
         sx={(theme) => ({
           height: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
           p: theme.spacing(2, 3),
-          justifyContent: 'space-between',
-          overflowY: 'auto',
+          justifyContent: "space-between",
+          overflowY: "auto",
         })}
       >
+        {/* SideBar list top */}
         <List sx={{ pt: 0 }}>
           {drawerItems.slice(0, -2).map((drawerItem) => (
             <DrawerListItem key={drawerItem.id} item={drawerItem} />
           ))}
         </List>
-
+        {/* SideBar list bottom */}
         <List>
           {drawerItems.slice(-2).map((drawerItem) => (
             <DrawerListItem key={drawerItem.id} item={drawerItem} />
