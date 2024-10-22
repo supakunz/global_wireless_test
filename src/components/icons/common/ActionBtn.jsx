@@ -3,6 +3,8 @@ import { getdata, remove } from "@/functions/product";
 import EditProduct from "@/components/editproduct/EditProduct";
 import { ProductContext } from "@/providers/ProductProvider";
 import Swal from "sweetalert2";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 const ActionBtn = ({ data }) => {
   const [editToggle, setEditToggle] = useState(false);
@@ -13,9 +15,9 @@ const ActionBtn = ({ data }) => {
       <div>
         <a
           onClick={() => setEditToggle(true)}
-          className="edit_btn active:bg-slate-600"
+          className="rounded-full py-0.5 px-[0.4rem] text-[26px] cursor-pointer hover:bg-gray-200 transition-all duration-300"
         >
-          Edit
+          <EditNoteIcon fontSize="inherit" />
         </a>
         <a
           onClick={() => {
@@ -67,9 +69,9 @@ const ActionBtn = ({ data }) => {
               }
             });
           }}
-          className="remove_btn active:bg-red-600"
+          className="rounded-full py-0.5 px-[0.4rem] text-[26px] ml-2 cursor-pointer hover:bg-gray-200 transition-all duration-300"
         >
-          Delete
+          <DeleteIcon />
         </a>
       </div>
       <EditProduct
