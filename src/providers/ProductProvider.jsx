@@ -10,18 +10,26 @@ export default function ProductProvider({ children }) {
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalprice, setTotalprice] = useState();
+  // const [currencyPrice, setCurrencyPrice] = useState([]);
+
+  //Format to USD
+  const USDollar = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumSignificantDigits: 3,
+  });
+
+  // currency price from productData
+  const currencyPrice = productData.map((val) => {
+    let result = { ...val, price: USDollar.format(val.price) };
+    return result;
+  });
 
   const totalValue = () => {
     //Total price
     const sum = productData.reduce((a, b) => {
       return Number(a) + Number(b.price);
     }, 0);
-    //Format to USD
-    let USDollar = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumSignificantDigits: 3,
-    });
     let result = USDollar.format(sum);
     return setTotalprice(result);
   };
@@ -37,6 +45,7 @@ export default function ProductProvider({ children }) {
         totalprice,
         userData,
         setUserData,
+        currencyPrice,
       }}
     >
       {children}

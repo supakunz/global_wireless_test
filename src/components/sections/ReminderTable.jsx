@@ -14,7 +14,7 @@ import { ProductContext } from "@/providers/ProductProvider";
 
 const ReminderTable = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const { setProductData, productData, loading, setLoading } =
+  const { setProductData, productData, loading, setLoading, currencyPrice } =
     useContext(ProductContext);
   const apiRef = useGridApiRef();
 
@@ -73,7 +73,7 @@ const ReminderTable = () => {
           <DataGrid
             apiRef={apiRef}
             columns={columns}
-            rows={productData} // ** Data from API ** #mockup -> rows
+            rows={currencyPrice} // ** Data from API ** #mockup -> rows
             rowHeight={80}
             // {...data}
             loading={loading} //loading #overlays MUI
