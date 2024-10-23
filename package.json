@@ -21,6 +21,8 @@
     "@mui/x-data-grid": "^7.20.0",
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
     "mongoose": "^8.7.2",
     "next": "14.2.15",
     "next-auth": "^4.24.8",
