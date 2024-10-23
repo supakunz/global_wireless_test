@@ -11,14 +11,14 @@ export const factors = [
     icon: Lightning,
     title: 'Users',
     color: 'primary.main',
-    value: NaN,
+    value: "NaN",
   },
   {
     id: 2,
     icon: Range,
     title: 'Products',
     color: 'error.light',
-    value: NaN,
+    value: "NaN",
     // max: 300,
   },
   {
@@ -26,13 +26,13 @@ export const factors = [
     icon: Blood,
     title: 'Value',
     color: 'secondary.main',
-    value: NaN,
+    value: "NaN",
   },
   {
     id: 4,
     icon: Tier,
     title: 'Reports',
     color: 'warning.darker',
-    value: NaN,
+    value: "NaN",
   },
 ];

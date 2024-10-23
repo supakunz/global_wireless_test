@@ -10,7 +10,6 @@ import AddProject from "../addproject/AddProject";
 import { useContext, useEffect, useState } from "react";
 import { getdata } from "@/functions/product";
 import { ProductContext } from "@/providers/ProductProvider";
-// import EditProduct from "../editproduct/EditProduct";
 
 const ReminderTable = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -28,7 +27,6 @@ const ReminderTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // console.log(data);
   return (
     <>
       <Paper
@@ -75,7 +73,6 @@ const ReminderTable = () => {
             columns={columns}
             rows={currencyPrice} // ** Data from API ** #mockup -> rows
             rowHeight={80}
-            // {...data}
             loading={loading} //loading #overlays MUI
             slotProps={{
               loadingOverlay: {
