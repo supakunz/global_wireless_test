@@ -17,8 +17,21 @@ const userSchema = new Schema(
     password: {
       type: String,
       require: true
+    },
+    role:{
+      type:String,
+      default:"user"
     }
-  }, {timestamps:true})
+  },{
+    toJSON:{ // แปลงข้อมูลเมื่อมีการดึงค่า
+      virtuals:true,
+      transform(doc,ret){
+        delete ret.__v //ลบ __v
+        ret.id = ret._id //เพิ่ม id = _id
+        delete ret._id // ลบ _id
+      }
+    }
+  })
 
 const User = mongoose.models.User || mongoose.model("User", userSchema)
 

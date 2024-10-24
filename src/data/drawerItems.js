@@ -45,7 +45,7 @@ export const drawerItems = [
     id: 4,
     icon: Authentication,
     title: 'Customers',
-    path: '#!',
+    path: '/dashboard/customer',
     active: true,
     collapsible: false,
   },

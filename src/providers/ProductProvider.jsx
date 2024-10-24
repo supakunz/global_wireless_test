@@ -34,6 +34,8 @@ export default function ProductProvider({ children }) {
     return setTotalprice(result);
   };
 
+  console.log(userData);
+
   return (
     <ProductContext.Provider
       value={{

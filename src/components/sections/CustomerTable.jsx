@@ -5,22 +5,22 @@ import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
 import IconifyIcon from "../../components/base/IconifyIcon";
 import SearchFilter from "../../components/common/SearchFilter";
 import CustomPagination from "../../components/common/CustomPagination";
-import { columns, rows } from "../../data/reminderTableData";
+import { columns, rows } from "../../data/customerTableData";
 import AddProject from "../addproject/AddProject";
 import { useContext, useEffect, useState } from "react";
-import { getdata } from "@/functions/product";
 import { ProductContext } from "@/providers/ProductProvider";
+import { getusers } from "@/functions/userdata";
 
-const ReminderTable = () => {
+const CustomerTable = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const { setProductData, loading, setLoading, currencyPrice } =
+  const { loading, setLoading, userData, setUserData } =
     useContext(ProductContext);
   const apiRef = useGridApiRef();
 
   useEffect(() => {
-    getdata()
+    getusers()
       .then((res) => {
-        setProductData(res.data.response);
+        setUserData(res.data.response);
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -42,7 +42,7 @@ const ReminderTable = () => {
           spacing={2}
         >
           <Typography variant="h5" color="common.black">
-            Products
+            Customers
           </Typography>
 
           <SearchFilter apiRef={apiRef} />
@@ -57,7 +57,7 @@ const ReminderTable = () => {
             })}
             startIcon={<IconifyIcon icon="heroicons-solid:plus" />}
           >
-            <Typography variant="body2">Add New</Typography>
+            <Typography variant="body2">Add User</Typography>
           </Button>
         </Stack>
 
@@ -71,7 +71,7 @@ const ReminderTable = () => {
           <DataGrid
             apiRef={apiRef}
             columns={columns}
-            rows={currencyPrice} // ** Data from API ** #mockup -> rows
+            rows={userData} // ** Data from API ** #mockup -> rows
             rowHeight={80}
             loading={loading} //loading #overlays MUI
             slotProps={{
@@ -99,4 +99,4 @@ const ReminderTable = () => {
   );
 };
 
-export default ReminderTable;
+export default CustomerTable;
