@@ -186,6 +186,7 @@ const AddUsers = ({ isOpen, setIsOpen }) => {
                         required
                         id="outlined-required"
                         name="email"
+                        type="email"
                         label="Email"
                         onChange={handleChange}
                         value={data.detail}

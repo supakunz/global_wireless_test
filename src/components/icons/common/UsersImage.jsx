@@ -5,7 +5,7 @@ const ProductImage = ({ image_name }) => {
   return (
     <div className="h-full py-1">
       <div className="h-full flex items-center">
-        <Avatar src="/broken-image.jpg" />
+        <Avatar />
       </div>
     </div>
   );

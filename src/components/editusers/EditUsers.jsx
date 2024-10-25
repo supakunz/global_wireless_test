@@ -160,6 +160,7 @@ const EditUsers = ({ userToggle, setUserToggle, product_value }) => {
                         id="outlined-required"
                         name="email"
                         label="Email"
+                        type="email"
                         onChange={handleChange}
                         value={data.email}
                       />
