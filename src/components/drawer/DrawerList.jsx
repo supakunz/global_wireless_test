@@ -1,7 +1,6 @@
 import { Link, List, Stack, Toolbar, Typography } from "@mui/material";
 import { drawerItems } from "../../data/drawerItems";
 import Logo from "../../components/icons/common/Logo";
-// import { rootPaths } from 'routes/paths';
 import DrawerListItem from "./DrawerListItem";
 
 const DrawerList = () => {

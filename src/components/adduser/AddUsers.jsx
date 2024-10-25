@@ -76,7 +76,7 @@ const AddUsers = ({ isOpen, setIsOpen }) => {
         });
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        const response = err.response.data.message;
         setData({
           firstName: "",
           lastName: "",
@@ -89,7 +89,7 @@ const AddUsers = ({ isOpen, setIsOpen }) => {
         Swal.close();
         Swal.fire({
           title: "Something Wrong!",
-          text: "Please try again later.",
+          text: response,
           icon: "error",
         });
       })
