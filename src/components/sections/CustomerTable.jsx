@@ -6,10 +6,10 @@ import IconifyIcon from "../../components/base/IconifyIcon";
 import SearchFilter from "../../components/common/SearchFilter";
 import CustomPagination from "../../components/common/CustomPagination";
 import { columns, rows } from "../../data/customerTableData";
-import AddProject from "../addproject/AddProject";
 import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "@/providers/ProductProvider";
 import { getusers } from "@/functions/userdata";
+import AddUsers from "../adduser/AddUsers";
 
 const CustomerTable = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -94,7 +94,7 @@ const CustomerTable = () => {
         </Box>
         <CustomPagination apiRef={apiRef} />
       </Paper>
-      <AddProject isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddUsers isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

@@ -8,7 +8,7 @@ export async function POST(req) { //**ชื่อ Function ใช้กำห�
     //Process
     //1.ConnectDB
     connect()
-    const { firstName,lastName, email, password } = await req.json()
+    const { firstName, lastName, email, password, role } = await req.json()
     const user = await User.findOne({ email }).select("_id")
     //2.Check same email.
     if (user) {
@@ -16,8 +16,12 @@ export async function POST(req) { //**ชื่อ Function ใช้กำห�
     }
     const hashedPassword = await bcrypt.hash(password, 10)
     //3.Create Models and send to database
-    await User.create({ firstName,lastName, email, password: hashedPassword }) //**Password hashed*/
-
+    if (!role) { //#ไม่มี role ส่งมา
+      await User.create({ firstName,lastName, email, password: hashedPassword}) //**Password hashed*/
+      return NextResponse.json({ message: "User registered" }, { status: 201 })
+    }
+    //#มี role ส่งมา
+    await User.create({ firstName,lastName, email, password: hashedPassword, role }) //**Password hashed*/
     return NextResponse.json({ message: "User registered" }, { status: 201 })
   } catch (error) {
     return NextResponse.json({ message: "An error occured while registrating the user." }, { status: 500 })

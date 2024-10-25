@@ -40,7 +40,7 @@ export const columns = [
     headerName: 'Action',
     flex: 1,
     minWidth: 152,
-    renderCell: (params) => <ActionBtn data={params}/>
+    renderCell: (params) => <ActionBtn data={params} action={"user"}/>
   },
 ];
 
