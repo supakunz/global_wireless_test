@@ -1,5 +1,5 @@
 # Admin-Dashboard
-Gunglz is a chatbot application developed using the Next.JS, Tailwind CSS and Google Generative AI. It enables users to create intelligent chatbots efficiently. This application incorporates both the bot's artificial intelligence component and chat management system, while also supporting seamless integration of REST APIs and comes equipped with numerous features, including learning capabilities, memory retention, topic-based conversation handling.
+AdminDashboard is application an app that displays various information and manages products and users, developed using NextJS TailwindCSS MUI Axios and NextAuth for the client and MongoDB for the database.
 
 https://github.com/user-attachments/assets/a7f2acdc-7dee-4c52-ae53-db5cdf2940cf
 
