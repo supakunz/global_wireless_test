@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Admin-Dashboard
+AdminDashboard is application an app that displays various information and manages products and users, developed using NextJS TailwindCSS MUI Axios and NextAuth for the client and MongoDB for the database.
 
-## Getting Started
+https://github.com/user-attachments/assets/a7f2acdc-7dee-4c52-ae53-db5cdf2940cf
 
-First, run the development server:
+## 🎃 Live Demo 
+<a href='https://gunglz-chatbot.vercel.app/' target="_blank">AdminDashboard</a>
+
+## 💀 Features
+
+  <ul>
+      <li>Creating an API route.</li>
+      <li>Connecting and querying a MongoDB Database via an API route.</li>
+      <li>Adding a user signup API route and sending signup requests from the frontend</li>
+      <li>Working with a custom auth provider in NextAuth.js to log in users.</li>
+      <li>Hashing passwords with Bcryptjs.</li>
+      <li>Adding, editing, deleting products and users</li>
+      <li>Can display user information in the system and the quantity and price of the product.</li>
+      <li>Integrating Sweetalert2 for displaying user-friendly notifications.</li>
+      
+   
+  </ul>
+
+## 🎉 Technologyies Used
+   <i>Tools :</i>
+  <ul>
+      <li>NextJS</li>
+      <li>Axios</li>
+      <li>NextAuth</li>
+      <li>Sweetalert2</li>
+      <li>Material UI</li>
+      <li>Tailwind CSS</li>
+  </ul>
+
+  <i>Database :</i>
+      <li>MongoDB</li>
+
+## 🐦 Installation
+
+1. Clone this repository :
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/SupakunZ/Admin_Dashboard.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Navigate to the project folder and install dependencies :
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+cd Admin_Dashboard
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Launch the application in development mode :
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+npm run dev
+```
