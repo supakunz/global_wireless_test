@@ -1,7 +1,7 @@
 # Admin-Dashboard
 AdminDashboard is application an app that displays various information and manages products and users, developed using NextJS TailwindCSS MUI Axios and NextAuth for the client and MongoDB for the database.
 
-https://github.com/user-attachments/assets/a7f2acdc-7dee-4c52-ae53-db5cdf2940cf
+https://github.com/user-attachments/assets/ff69e0ef-6b91-46e0-b049-dffd332c4429
 
 ## 🎃 Live Demo 
 <a href='https://gunglz-chatbot.vercel.app/' target="_blank">AdminDashboard</a>
