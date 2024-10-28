@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { signup } from "@/functions/register";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const checkBoxLabel = { inputProps: { "aria-label": "Checkbox" } };
 
@@ -29,9 +30,11 @@ const Signup = () => {
   const router = useRouter();
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    toast.loading("Please wait...", { position: "top-right" });
     await signup(data)
       .then((res) => {
         console.log(res.data.message);
+        toast.dismiss();
         Swal.fire({
           title: "Successfuly!",
           text: "Your user has been created.",
@@ -44,6 +47,7 @@ const Signup = () => {
         });
       })
       .catch((err) => {
+        toast.dismiss();
         Swal.fire({
           title: "Something Wrong!",
           text: `${err.response.data.message}`,
