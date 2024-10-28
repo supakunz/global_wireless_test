@@ -11,9 +11,10 @@ import { ProductContext } from "@/providers/ProductProvider";
 import Swal from "sweetalert2";
 
 const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
+  const priceformat = Number(product_value.price.replace(/[$,]/g, ""));
   const [data, setData] = useState({
     name: product_value.name,
-    price: product_value.price,
+    price: priceformat,
     detail: product_value.detail,
   });
   const [image, setImage] = useState(false);
@@ -143,6 +144,7 @@ const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
                       />
                       <TextField
                         required
+                        type="number"
                         id="outlined-required"
                         name="price"
                         label="Price"

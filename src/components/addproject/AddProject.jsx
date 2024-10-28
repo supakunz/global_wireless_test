@@ -162,6 +162,7 @@ const AddProject = ({ isOpen, setIsOpen }) => {
                       <TextField
                         required
                         id="outlined-required"
+                        type="number"
                         name="price"
                         label="Price"
                         onChange={handleChange}

@@ -13,8 +13,6 @@ const ActionBtn = ({ data, action }) => {
   const [userToggle, setUserToggle] = useState(false);
   const { userData, setProductData, setUserData } = useContext(ProductContext);
 
-  console.log(userData);
-
   const handleDeleteProduct = () => {
     Swal.fire({
       title: "Are you sure?",
