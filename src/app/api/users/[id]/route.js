@@ -3,6 +3,7 @@ import connect from "@/lib/connect";
 import User from "@/models/user";
 import bcrypt from 'bcrypt'
 
+export const dynamic = 'force-dynamic';
 
 //Delete user
 export async function DELETE(req,{params}) {

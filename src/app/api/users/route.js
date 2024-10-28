@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import connect from "@/lib/connect";
 import User from "@/models/user";
 
-
+export const dynamic = 'force-dynamic';
 //Get data
 export async function GET(req) {
   try {
