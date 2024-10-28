@@ -12,8 +12,6 @@ import Swal from "sweetalert2";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { getusers, updateusers } from "@/functions/userdata";
 
-export const dynamic = "force-dynamic";
-
 const EditUsers = ({ userToggle, setUserToggle, product_value }) => {
   const [data, setData] = useState({
     firstName: product_value.firstName,

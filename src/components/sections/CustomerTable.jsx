@@ -11,8 +11,6 @@ import { ProductContext } from "@/providers/ProductProvider";
 import { getusers } from "@/functions/userdata";
 import AddUsers from "../adduser/AddUsers";
 
-export const dynamic = "force-dynamic";
-
 const CustomerTable = () => {
   let [isOpen, setIsOpen] = useState(false);
   const { loading, setLoading, userData, setUserData } =
