@@ -45,7 +45,7 @@ const Login = () => {
         redirect: false,
       }).then((res) => {
         if (res.error) {
-          // toast.dismiss();
+          toast.dismiss();
           toast.error(
             `${
               res.error === "Invalid email or password."

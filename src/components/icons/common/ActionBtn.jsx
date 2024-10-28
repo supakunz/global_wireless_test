@@ -11,9 +11,9 @@ import EditUsers from "@/components/editusers/EditUsers";
 const ActionBtn = ({ data, action }) => {
   const [editToggle, setEditToggle] = useState(false);
   const [userToggle, setUserToggle] = useState(false);
-  const { setProductData, setUserData } = useContext(ProductContext);
+  const { userData, setProductData, setUserData } = useContext(ProductContext);
 
-  // console.log(data);
+  console.log(userData);
 
   const handleDeleteProduct = () => {
     Swal.fire({
@@ -76,6 +76,13 @@ const ActionBtn = ({ data, action }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        if (userData.length <= 1) {
+          return Swal.fire({
+            title: "Something Wrong!",
+            text: "Your can't remove last user!",
+            icon: "error",
+          });
+        }
         Swal.fire({
           title: "Loading...",
           html: "Please wait...",

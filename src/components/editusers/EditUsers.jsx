@@ -165,7 +165,6 @@ const EditUsers = ({ userToggle, setUserToggle, product_value }) => {
                         value={data.email}
                       />
                       <TextField
-                        required
                         id="outlined-required"
                         name="password"
                         label="Password"
