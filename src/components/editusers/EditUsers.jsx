@@ -167,7 +167,7 @@ const EditUsers = ({ userToggle, setUserToggle, product_value }) => {
                       <TextField
                         id="outlined-required"
                         name="password"
-                        label="Password"
+                        label="Reset Password *"
                         onChange={handleChange}
                         value={data.password}
                       />
