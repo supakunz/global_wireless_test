@@ -73,6 +73,7 @@ const Login = () => {
       });
     } catch (error) {
       console.log(error);
+      toast.dismiss();
       toast.error("Please try again later.", {
         position: "top-right",
         autoClose: 2000,
