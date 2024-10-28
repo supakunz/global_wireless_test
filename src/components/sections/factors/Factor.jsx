@@ -27,7 +27,6 @@ const Factor = ({ factor }) => {
   } = useContext(ProductContext);
 
   // const products = productData.length || 0;
-  const [product, setProduct] = useState(0);
 
   const { icon: Icon, color, title, value, max = 100 } = factor;
 

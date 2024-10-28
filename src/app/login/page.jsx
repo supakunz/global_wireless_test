@@ -45,7 +45,7 @@ const Login = () => {
         redirect: false,
       }).then((res) => {
         if (res.error) {
-          toast.dismiss();
+          // toast.dismiss();
           toast.error(
             `${
               res.error === "Invalid email or password."
@@ -62,8 +62,8 @@ const Login = () => {
           return;
         }
         // router.push("/dashboard"); //ไปที่หน้า welcome
-        toast.dismiss();
         setTimeout(() => {
+          toast.dismiss();
           toast.success("Login successful", {
             position: "top-right",
             autoClose: 2000,
