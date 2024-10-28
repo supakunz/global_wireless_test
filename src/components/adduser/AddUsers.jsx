@@ -13,6 +13,8 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { signup } from "@/functions/register";
 import { getusers } from "@/functions/userdata";
 
+export const dynamic = "force-dynamic";
+
 const AddUsers = ({ isOpen, setIsOpen }) => {
   const [data, setData] = useState({
     firstName: "",

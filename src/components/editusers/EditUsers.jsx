@@ -10,9 +10,9 @@ import Button from "@mui/material/Button";
 import { ProductContext } from "@/providers/ProductProvider";
 import Swal from "sweetalert2";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { signup } from "@/functions/register";
 import { getusers, updateusers } from "@/functions/userdata";
-// import bcrypt from "bcrypt";
+
+export const dynamic = "force-dynamic";
 
 const EditUsers = ({ userToggle, setUserToggle, product_value }) => {
   const [data, setData] = useState({
