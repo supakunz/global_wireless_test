@@ -3,8 +3,10 @@ import { Grid } from "@mui/material";
 import Factors from "@/components/sections/factors/Factors";
 import { factors } from "../../data/factors";
 import Statistics from "@/components/sections/statistics/Statistics";
+import { draftMode } from "next/headers";
 
-const AdminPage = () => {
+const AdminPage = async () => {
+  const { isEnabled } = await draftMode();
   return (
     <>
       <Grid container rowGap={3.75}>
