@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as echarts from "echarts/core";
 import { TooltipComponent, GridComponent } from "echarts/components";
 import { LineChart } from "echarts/charts";

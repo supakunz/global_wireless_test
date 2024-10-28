@@ -1,9 +1,10 @@
-'use client'
+/* eslint-disable react/display-name */
+"use client";
 
-import { forwardRef, useState } from 'react';
-import { TextField, InputAdornment, IconButton } from '@mui/material';
-import View from '../icons/authentication/View';
-import EyeClosed from '../icons/authentication/EyeClosed';
+import { forwardRef, useState } from "react";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import View from "../icons/authentication/View";
+import EyeClosed from "../icons/authentication/EyeClosed";
 
 const PasswordTextField = forwardRef((props, ref) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -15,7 +16,7 @@ const PasswordTextField = forwardRef((props, ref) => {
 
   return (
     <TextField
-      type={isPasswordVisible ? 'text' : 'password'}
+      type={isPasswordVisible ? "text" : "password"}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

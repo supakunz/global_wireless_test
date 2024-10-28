@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { Box } from "@mui/material";
 import ReactEChartsCore from "echarts-for-react/lib/core";
 import { forwardRef } from "react";

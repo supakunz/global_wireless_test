@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { getdata } from "@/functions/product";
 import { ProductContext } from "@/providers/ProductProvider";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 const ValueProduct = () => {
   const { productData, setProductData } = useContext(ProductContext);
