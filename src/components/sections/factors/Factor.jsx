@@ -26,6 +26,9 @@ const Factor = ({ factor }) => {
     setUserData,
   } = useContext(ProductContext);
 
+  // const products = productData.length || 0;
+  const [product, setProduct] = useState(0);
+
   const { icon: Icon, color, title, value, max = 100 } = factor;
 
   const [paletteOption, simplePaletteColorOption] = color.split(".");
@@ -46,6 +49,7 @@ const Factor = ({ factor }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(userData.length);
   totalValue();
 
   return (
@@ -84,13 +88,25 @@ const Factor = ({ factor }) => {
           <div className="text-center flex flex-col gap-1">
             <Typography variant="h3">{title}</Typography>
             <Typography className="text-[20px]">
-              {title === "Products"
-                ? productData.length || <Skeleton />
-                : title === "Value"
-                ? totalprice || <Skeleton />
-                : title === "Users"
-                ? userData.length || <Skeleton />
-                : value}
+              {title === "Products" ? (
+                userData.length == 0 ? (
+                  <Skeleton />
+                ) : (
+                  productData.length
+                )
+              ) : title === "Value" ? (
+                userData.length == 0 ? (
+                  <Skeleton />
+                ) : (
+                  totalprice
+                )
+              ) : title === "Users" ? (
+                userData.length || <Skeleton />
+              ) : userData.length == 0 ? (
+                <Skeleton />
+              ) : (
+                value
+              )}
             </Typography>
           </div>
         </Stack>
