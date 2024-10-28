@@ -4,7 +4,7 @@ AdminDashboard is application an app that displays various information and manag
 https://github.com/user-attachments/assets/af5aa836-525c-4f9f-9dea-c46f560ab042
 
 ## 🎃 Live Demo 
-<a href='https://gunglz-chatbot.vercel.app/' target="_blank">AdminDashboard</a>
+<a href='https://adminz-dashboard.vercel.app/' target="_blank">AdminDashboard</a>
 
 ## 💀 Features
 
