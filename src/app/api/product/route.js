@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import fs from 'fs';
-import { pipeline } from 'stream';
-import { promisify } from 'util';
+// import fs from 'fs';
+import { put } from '@vercel/blob';
+// import { pipeline } from 'stream';
+// import { promisify } from 'util';
 import connect from "@/lib/connect";
 import Products from "@/models/model";
-const pump = promisify(pipeline);
+// const pump = promisify(pipeline);
 
 //Get data
 export async function GET(req) {
@@ -34,13 +35,21 @@ export async function POST(req) {
       //Generrate name image
       const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E9) + '_' // Genชื่อไฟล์ที่ตั้ง
       const filename = 'product_' + uniqueSuffix + file.name //ชื่อไฟล์
-      const filePath = `./public/file/${filename}`; // Create file path
-      //Create image of filePath
-      await pump(file.stream(), fs.createWriteStream(filePath));
+      
+      //Creqte on Server
+      // const filePath = `./public/file/${filename}`; // Create file path
+      // //Create image of filePath
+      // await pump(file.stream(), fs.createWriteStream(filePath));
+      
+      //Create file image on vercel storage
+      const blob = await put(filename, file, {
+        access: 'public',
+      });
+
       // สร้าง file ใน object of data
-      data.file = filename
+      data.file = blob.url
     }
-    console.log(data)
+    // console.log(data)
     //Send data to Database
     await Products(data).save()
     

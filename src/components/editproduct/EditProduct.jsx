@@ -16,7 +16,10 @@ const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
     name: product_value.name,
     price: priceformat,
     detail: product_value.detail,
+    url: product_value.file,
   });
+
+  console.log(product_value);
   const [image, setImage] = useState(false);
   const { setProductData } = useContext(ProductContext);
 
@@ -118,7 +121,9 @@ const EditProduct = ({ editToggle, setEditToggle, product_value }) => {
                         src={
                           image
                             ? URL.createObjectURL(image)
-                            : `/file/${product_value.file}`
+                            : product_value.file === "noimage.jpg"
+                            ? `/file/${product_value.file}`
+                            : product_value.file
                         }
                         alt="file_image"
                         width={200}

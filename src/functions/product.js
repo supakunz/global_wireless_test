@@ -18,6 +18,6 @@ export const update = async (id, data) => {
   return response;
 }
 export const remove = async (id) => {
-  const response = await axios.delete('/api/product/' + id, id)
+  const response = await axios.post('/api/product/' + id.id, {url:id.url})
   return response;
 }

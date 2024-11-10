@@ -10,7 +10,9 @@ const ProductImage = ({ image_name }) => {
           fill={true}
           layout={"fill"}
           objectFit={"contain"}
-          src={`/file/${image_name}`}
+          src={
+            image_name === "noimage.jpg" ? `/file/${image_name}` : image_name
+          }
         />
       </div>
     </div>

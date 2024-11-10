@@ -35,7 +35,9 @@ const ActionBtn = ({ data, action }) => {
           },
         });
         //**Remove Products**
-        remove(data.id)
+        const id = { url: data.row.file, id: data.id };
+        console.log(id);
+        remove(id)
           .then((res) => {
             console.log(res.data.message);
             Swal.close();
