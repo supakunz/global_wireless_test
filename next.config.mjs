@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/register",
+        destination: "/home",
         permanent: true,
       },
     ];
