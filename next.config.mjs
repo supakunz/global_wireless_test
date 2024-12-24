@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async redirects() { // Set default routes.
+  async redirects() {
+    // Set default routes.
     return [
       {
-        source: '/',
-        destination: '/login',
+        source: "/",
+        destination: "/register",
         permanent: true,
       },
-    ]
+    ];
   },
   images: {
     remotePatterns: [
