@@ -58,8 +58,34 @@ const Signup = () => {
   };
 
   return (
-    <section className="flex justify-center">
-      <Box sx={{ width: { xs: 1, sm: 506 }, px: { xs: 2, sm: 0 }, py: 10 }}>
+    <section className="flex justify-center static lg:relative">
+      <Box
+        className="relative lg:static"
+        sx={{ width: { xs: 1, sm: 506 }, px: { xs: 2, sm: 0 }, py: 10 }}
+      >
+        <div className="absolute top-6 left-0 ssm:-left-2 lg:left-[16rem]">
+          <Link href={"/login"}>
+            <button
+              class="cursor-pointer duration-200 hover:scale-125 active:scale-100"
+              title="Go Back"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40px"
+                height="40px"
+                viewBox="0 0 24 24"
+                class="stroke-blue-300"
+              >
+                <path
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="1.5"
+                  d="M11 6L5 12M5 12L11 18M5 12H19"
+                ></path>
+              </svg>
+            </button>
+          </Link>
+        </div>
         <Typography variant="h1">Get&apos;s started.</Typography>
         <Typography
           variant="subtitle1"
