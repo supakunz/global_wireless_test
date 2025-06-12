@@ -25,7 +25,8 @@ This project is developed using ReactJS TailwindCSS for the client and NodeJS My
 
   <i>Database :</i>
   <ul>
-      <li>MongoDB</li>
+      <li>MySQL</li>
+     <li>Prisma ORM</li>
   </ul>
 
 ## ❄️ Installation
@@ -56,11 +57,11 @@ VITE_APP_API = http://localhost:4000
 
 ```
 PORT = 4000
-DATABASE_URL="mysql://root:root@db:3306/authentication"
-JWT_SECRET="your_jwt_secret"
-PORT=4000
-DB_HOST=db
-DB_PORT=3306
+DATABASE_URL = "mysql://root:root@db:3306/authentication"
+JWT_SECRET = "your_jwt_secret"
+PORT = 4000
+DB_HOST = db
+DB_PORT = 3306
 ```
 
 4. Launch the application in development mode :
