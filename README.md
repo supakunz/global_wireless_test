@@ -103,4 +103,8 @@ exec /entrypoint.sh: no such file or directory
 - เลือก LF จากเมนูที่แสดง
 
 - กด Ctrl + S เพื่อบันทึก
+
+```
+docker-compose up --build
+```
   
