@@ -69,3 +69,13 @@ DB_PORT = 3306
 ```
 docker-compose up --build
 ```
+- Create a `.env` file in the client and server root directory.
+- Add the following variables to the .env file on client, replacing the placeholder values with your own:
+- Add the following variables to the .env file on client, replacing the placeholder values with your own:
+
+## 🧪 Access URLs
+
+- Backend API - `http://localhost:4000`
+- Frontend App - `http://localhost:5174`
+- phpMyAdmin - `http://localhost:8080`
+  
