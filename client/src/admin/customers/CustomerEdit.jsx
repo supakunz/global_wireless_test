@@ -1,9 +1,15 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuth } from "../../context/AuthProvider";
-import { updateUser, deleteUser, getUserById } from "../../service/useService";
+import {
+  updateUser,
+  deleteUser,
+  getUserById,
+  signUp,
+} from "../../service/useService";
 import { z } from "zod";
 
 const userSchema = z.object({
@@ -26,7 +32,7 @@ const userSchema = z.object({
   role: z.enum(["user", "admin"]),
 });
 
-const CustomerEdit = (type) => {
+const CustomerEdit = ({ type }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getAllUsers } = useAuth();
@@ -37,6 +43,8 @@ const CustomerEdit = (type) => {
     role: "user",
   });
   const [errors, setErrors] = useState({});
+
+  console.log("CustomerEdit type =", type, "id =", typeof id);
 
   // GetData from productID
   const fectInfo = async () => {
@@ -56,10 +64,14 @@ const CustomerEdit = (type) => {
   // GetData from productID
   const updateInfo = async () => {
     Swal.fire({
-      title: "Do you want to save the changes?",
+      title: `${
+        type == "update"
+          ? "Do you want to save the changes?"
+          : "Do you want to create user?"
+      }`,
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: "Save",
+      confirmButtonText: `${type == "update" ? "Save" : "Add"}`,
       denyButtonText: `Don't save`,
     }).then(async (result) => {
       /* Read more about isConfirmed, isDenied below */
@@ -91,19 +103,35 @@ const CustomerEdit = (type) => {
           },
         });
         try {
-          const payload = { ...usersDetails };
+          const payload = {
+            username: usersDetails.name,
+            email: usersDetails.email,
+            password: usersDetails.password,
+            role: usersDetails.role,
+          };
           // ป้องกันการส่ง password ค่าเป็น null
           if (!payload.password) delete payload.password;
 
-          await updateUser(id, payload);
+          const required =
+            id != "add" ? updateUser(id, payload) : signUp(payload);
+
+          await required;
           Swal.close();
-          Swal.fire("Updated successfully!", "", "success");
+          Swal.fire(
+            `${id != "add" ? "Updated successfully" : "Created successfully"}!`,
+            "",
+            "success"
+          );
           getAllUsers();
           navigate(-1);
         } catch (error) {
           console.log(error);
           Swal.close();
-          Swal.fire("Update faild!", "", "error");
+          Swal.fire(
+            `${id != "add" ? "Updated failed" : "Created failed"}!`,
+            "",
+            "error"
+          );
         }
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
@@ -157,7 +185,7 @@ const CustomerEdit = (type) => {
   };
 
   useEffect(() => {
-    if (!type == "update") return;
+    if (id === "add") return;
     fectInfo();
   }, [id]);
 
@@ -224,14 +252,16 @@ const CustomerEdit = (type) => {
             onClick={updateInfo}
             className="addproduct-btn mt-[3px] w-[160px] h-[50px] rounded-[6px] bg-[#6079ff] border-none cursor-pointer text-white text-[16px] font-medium"
           >
-            UPDATE
+            {id != "add" ? "UPDATE" : "ADD"}
           </button>
-          <button
-            onClick={remove_product}
-            className="addproduct-btn mt-[3px] w-[160px] h-[50px] rounded-[6px] bg-red-500 border-none cursor-pointer text-white text-[16px] font-medium"
-          >
-            DELETE
-          </button>
+          {id != "add" && (
+            <button
+              onClick={remove_product}
+              className="addproduct-btn mt-[3px] w-[160px] h-[50px] rounded-[6px] bg-red-500 border-none cursor-pointer text-white text-[16px] font-medium"
+            >
+              DELETE
+            </button>
+          )}
         </div>
       </div>
     </>

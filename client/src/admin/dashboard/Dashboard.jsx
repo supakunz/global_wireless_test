@@ -6,7 +6,7 @@ import CardDataStats from "./CardDataStats";
 import { useAuth } from "../../context/AuthProvider";
 
 const Dashboard = () => {
-  const { getAllUsers } = useAuth();
+  const { getAllUsers, allusers } = useAuth();
 
   useEffect(() => {
     getAllUsers();
@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="add-product box-border w-full p-[30px_50px] m-[20px_30px] rounded-[6px] bg-white">
+      <div className="add-product box-border w-full p-[30px_50px] m-[20px_30px] rounded-[6px] bg-white text-white">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
           <CardDataStats title="Products Value" total={0} rate="0.43%" levelUp>
             <svg
@@ -77,7 +77,12 @@ const Dashboard = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Total Users" total={0} rate="0.95%" levelDown>
+          <CardDataStats
+            title="Total Users"
+            total={allusers.length || 0}
+            rate="0.95%"
+            levelDown
+          >
             <svg
               className="fill-primary dark:fill-white"
               width="22"
@@ -101,7 +106,7 @@ const Dashboard = () => {
             </svg>
           </CardDataStats>
         </div>
-        <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+        <div className=" mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
           <ChartOne />
           <ChartTwo data={0} />
         </div>

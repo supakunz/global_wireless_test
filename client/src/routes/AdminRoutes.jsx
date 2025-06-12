@@ -14,8 +14,8 @@ function AdminRoutes() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/customers">
             <Route index element={<Customers />} />
-            <Route path="adduser" element={<CustomerEdit type={"add"} />} />
-            <Route path=":id" element={<CustomerEdit type={"update"} />} />
+            <Route path="adduser" element={<CustomerEdit type="add" />} />
+            <Route path=":id" element={<CustomerEdit type="update" />} />
           </Route>
           {/* เพิ่มเส้นทางอื่นๆ ที่ Admin เข้าถึงได้ */}
         </Routes>

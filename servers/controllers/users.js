@@ -14,6 +14,7 @@ const getAllUsers = async (req, res) => {
 const createUsers = async (req, res) => {
   try {
     // เช็ตว่าใน database มีข้อมู email นี้ไหม
+    const { username, email, password } = req.body;
     let check = await UserSchema.findOne({ email: req.body.email });
     if (check) {
       return res
@@ -23,9 +24,9 @@ const createUsers = async (req, res) => {
 
     const user = new UserSchema({
       // กำหนกค่าลงใน Table
-      name: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
+      name: username,
+      email: email,
+      password: password,
     });
     await user.save(); // save data at database
 
