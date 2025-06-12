@@ -1,12 +1,13 @@
 # User Management System
-This test is developed using ReactJS TailwindCSS for the client and NodeJS MySQL for the server.
+This project is developed using ReactJS TailwindCSS for the client and NodeJS MySQL for the server.
 
 ## 🔥 Features
 
   <ul>
-      <li>A robust authentication system ensures user data is safeguarded and protected.</li>
-      <li>Includes a smooth scroll-to-top feature for effortless navigation and improved usability.</li>
-      <li>Supports secure and reliable payments via Stripe. Helps users to make transactions easily.</li>
+     - 🔐 **Authentication & Authorization** – ระบบล็อกอิน / สมัครสมาชิก พร้อม JWT สำหรับจัดการ session
+     - 👥 **User Roles & Access Control** – กำหนดสิทธิ์การเข้าถึงตาม role เช่น admin, user
+     - 🧩 **User CRUD Management** – ฟังก์ชันเพิ่ม, ลบ, แก้ไข, และเรียกดูผู้ใช้
+     - 🚫 **Route Protection** – ป้องกันการเข้าถึง endpoint ที่ไม่ได้รับอนุญาต
   </ul>
 
 ## 🍀 Technologyies Used
