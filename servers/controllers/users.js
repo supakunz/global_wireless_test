@@ -1,36 +1,49 @@
-const UserSchema = require("../models/UserModel");
+// const UserSchema = require("../models/UserModel");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
+// 🔐 ENV CONFIG
+const JWT_SECRET = process.env.JWT_SECRET || "secret_ecom";
+
+// ✅ GET ALL USERS
 const getAllUsers = async (req, res) => {
   try {
-    let users = await UserSchema.find({});
+    const users = await prisma.user.findMany();
     console.log("All Users Fetched");
-    res.send(users);
+    res.json(users);
   } catch (error) {
-    res.status(404).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 
+// ✅ CREATE USER
 const createUsers = async (req, res) => {
   try {
-    // เช็ตว่าใน database มีข้อมู email นี้ไหม
-    const { username, email, password } = req.body;
-    let check = await UserSchema.findOne({ email: req.body.email });
-    if (check) {
-      return res
-        .status(400)
-        .json({ suscess: false, errors: "Duplicate email address." });
+    const { username, email, password, role } = req.body;
+
+    // Check duplicate email
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        errors: "Duplicate email address.",
+      });
     }
 
-    const user = new UserSchema({
-      // กำหนกค่าลงใน Table
-      name: username,
-      email: email,
-      password: password,
+    // hashPassword --> ป้องpassword
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await prisma.user.create({
+      data: {
+        name: username,
+        email,
+        password: hashedPassword,
+        role: role || "user",
+      },
     });
-    await user.save(); // save data at database
 
-    const data = {
+    const payload = {
       user: {
         id: user.id,
         name: user.name,
@@ -39,84 +52,107 @@ const createUsers = async (req, res) => {
       },
     };
 
-    // ** use Json Web Token **
-    const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" });
-    res.json({ success: true, token });
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+
+    res.status(201).json({ success: true, token });
   } catch (error) {
-    console.log(error);
-    res.json({ success: "Failed Registering.", status: error });
+    console.error("Create User Error:", error);
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
-const updateUsers = async (req, res) => {
-  try {
-    const { name, email, password, role } = req.body;
-    const { id } = req.params;
+// ✅ LOGIN USER
+const loginUsers = async (req, res) => {
+  const { email, password } = req.body;
 
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      return res.json({ success: false, errors: "Invalid email." });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.json({ success: false, errors: "Invalid password." });
+    }
+
+    const payload = {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
+
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+
+    res.json({ success: true, token });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// ✅ GET USER BY ID
+const getUsersID = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json([user]); // 👈 Send as array to match frontend
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ✅ UPDATE USER
+const updateUsers = async (req, res) => {
+  const { id } = req.params;
+  const { username, email, password, role } = req.body;
+
+  try {
     const data = {
-      name,
+      name: username,
       email,
       role,
     };
 
     if (password) {
-      data.password = password;
+      data.password = await bcrypt.hash(password, 10);
     }
 
-    const updated = await UserSchema.findOneAndUpdate({ _id: id }, data, {
-      new: true,
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data,
     });
-    console.log(updated);
+
+    console.log("User updated:", updatedUser);
     res.json({ message: "Update User Successfully" });
   } catch (error) {
-    res.status(404).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 
+// ✅ DELETE USER
 const deleteUsers = async (req, res) => {
-  await UserSchema.findOneAndDelete({ _id: req.body.id });
-  console.log("Remove Users");
-  res.json({ success: true, name: req.body.name });
-};
+  const { id, name } = req.body;
 
-const getUsersID = async (req, res) => {
   try {
-    const { id } = req.params;
-    let users = await UserSchema.find({ _id: id });
-    console.log("UsersID Fetched");
-    res.send(users);
+    await prisma.user.delete({ where: { id } });
+    console.log("Removed User:", name);
+    res.json({ success: true, name });
   } catch (error) {
-    res.status(404).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 
-const loginUsers = async (req, res) => {
-  let user = await UserSchema.findOne({ email: req.body.email });
-  if (user) {
-    // 1. check ว่า มี email นี้อยูใน database ไหม
-    const passCompare = req.body.password == user.password; // 2.Check ว่า password ที่ login เข้ามาตรงกับ database
-    if (passCompare) {
-      const data = {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        },
-      };
-      const token = jwt.sign(data, "secret_ecom", { expiresIn: "1h" }); // 3. ส่ง Token กลับไป
-      res.json({ success: true, token });
-    } else {
-      res.json({
-        suscess: false,
-        errors: "Invalid password please try again.",
-      });
-    }
-  } else {
-    res.json({ suscess: false, errors: "Invalid email please try again." });
-  }
-};
-
+// ✨ EXPORT CONTROLLERS
 module.exports = {
   getAllUsers,
   getUsersID,

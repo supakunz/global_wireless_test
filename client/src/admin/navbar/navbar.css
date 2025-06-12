@@ -1,11 +1,28 @@
-@media(max-width:800px){
-  .navbar{
-    @apply p-[15px_30px]
+@media (max-width: 800px) {
+  .navbar {
+    @apply p-[15px_30px];
   }
-  .nav-logo{
-    @apply w-[150px]
+  .nav-logo {
+    @apply w-[150px];
   }
-  .nav-profile{
-    @apply w-[60px]
+  .nav-profile {
+    @apply w-[60px];
   }
+}
+
+.nav-logo-text {
+  font-family: "Poppins", sans-serif; /* ฟ้อนต์ดูโมเดิร์น */
+  font-weight: 700; /* ตัวหนา */
+  font-size: 2rem; /* ขนาดใหญ่ขึ้น */
+  color: #6079ff; /* สีฟ้าสวย */
+  text-shadow: 1px 1px 3px rgba(96, 121, 255, 0.7); /* เงานุ่มๆ */
+  letter-spacing: 2px; /* เพิ่มระยะห่างตัวอักษร */
+  cursor: pointer; /* เหมือนปุ่ม */
+  user-select: none; /* ไม่ให้เลือกข้อความ */
+  transition: color 0.3s ease;
+}
+
+.nav-logo-text:hover {
+  color: #4d65e5; /* สีเข้มขึ้นเมื่อ hover */
+  text-shadow: 2px 2px 6px rgba(77, 101, 229, 0.8);
 }

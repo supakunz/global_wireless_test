@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [allusers, setAllusers] = useState([]);
   const [usersData, setUsersData] = useState(null);
+  const [token, setToken] = useState(null);
 
   const login = async (data, type) => {
     const toastId = toast.loading("Please wait...");
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }) => {
       if (response.success) {
         localStorage.setItem("auth-token", response.token);
         setIsAuthenticated(true);
+        setToken(response.setToken);
         const decoded = jwtDecode(response.token);
         console.log(decoded.user);
         setUsersData(decoded.user); // สมมติว่ามี useState หรือ context
@@ -44,6 +46,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem("auth-token");
+    setToken(null);
     setUsersData(null);
     toast.dismiss();
     toast.success("Logout successful", {
@@ -51,12 +54,20 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const getAllUsers = async () => {
+  const getAllUsers = async (tokenKey) => {
     try {
-      const data = await getAlluser();
-      setAllusers(data);
+      const data = await getAlluser(tokenKey);
+      if (Array.isArray(data)) {
+        setAllusers(data);
+      } else if (data && typeof data === "object" && data.users) {
+        // ถ้า API response แบบ { users: [...] }
+        setAllusers(data.users);
+      } else {
+        setAllusers([]); // กรณีอื่นๆ กำหนดเป็น array ว่าง
+      }
     } catch (err) {
       console.log("Error", err);
+      setAllusers([]); // ป้องกันค้างค่าเดิม
     }
   };
 
@@ -69,6 +80,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         login,
         logout,
+        token,
       }}
     >
       {children}

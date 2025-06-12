@@ -10,7 +10,14 @@ export const signUp = async (userData) => {
     },
     body: JSON.stringify(userData),
   });
-  return res.json();
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.errors || "Sign up failed.");
+  }
+
+  return data;
 };
 
 export const signIn = async (userData) => {
@@ -25,36 +32,59 @@ export const signIn = async (userData) => {
   return res.json();
 };
 
-export const getAlluser = async () => {
-  const res = await fetch(`${API_URL}/api/users`);
+export const getAlluser = async (token) => {
+  const res = await fetch(`${API_URL}/api/users`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // แนบ token ที่นี่
+    },
+  });
   const data = await res.json();
   return data; // หรือ return data ทั้งหมดแล้วไปจัดการใน caller
 };
 
-export const getUserById = async (id) => {
-  const res = await fetch(`${API_URL}/api/users/${id}`);
+export const getUserById = async (id, token) => {
+  const res = await fetch(`${API_URL}/api/users/${id}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // แนบ token ที่นี่
+    },
+  });
   const data = await res.json();
   return data[0]; // หรือ return data ทั้งหมดแล้วไปจัดการใน caller
 };
 
-export const updateUser = async (id, userData) => {
+export const updateUser = async (id, userData, token) => {
   const res = await fetch(`${API_URL}/api/users/${id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // แนบ token ที่นี่
     },
     body: JSON.stringify(userData),
   });
-  return res.json();
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.errors || "Sign up failed.");
+  }
+  // console.log("res ====>", res);
+  return data;
 };
 
-export const deleteUser = async (id) => {
+export const deleteUser = async (id, token) => {
   const res = await fetch(`${API_URL}/api/users`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // แนบ token ที่นี่
     },
     body: JSON.stringify({ id }),
   });

@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 import "./customers.css";
 
 const Customers = () => {
-  const { allusers, getAllUsers } = useAuth(); // เรียกใช้ user data ใน store
+  const { allusers, getAllUsers, token } = useAuth(); // เรียกใช้ user data ใน store
 
   useEffect(() => {
     if (allusers.length === 0) {
-      getAllUsers();
+      getAllUsers(token || localStorage.getItem("auth-token"));
     }
   }, []);
 
@@ -49,7 +49,7 @@ const Customers = () => {
                   <p>{users.name}</p>
                   <p>{users.email}</p>
                   <p>{users.role}</p>
-                  <Link to={`${users._id}`}>
+                  <Link to={`${users.id}`}>
                     <p className="cursor-pointer">edit</p>
                   </Link>
                 </div>

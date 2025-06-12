@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
@@ -12,30 +13,48 @@ import {
 } from "../../service/useService";
 import { z } from "zod";
 
-const userSchema = z.object({
+const createUserSchema = z.object({
   name: z
     .string()
-    .min(3, "Username must contain at least 3 character(s)")
-    .max(20, "Username must be no more than 20 characters(s)")
-    .regex(/^[a-zA-Z0-9]+$/, {
-      // อนุญาตเฉพาะตัวอักษรและตัวเลข
-      message: "Username must not contain special characters",
-    })
-    .optional(),
+    .min(3)
+    .max(20)
+    .regex(/^[a-zA-Z0-9]+$/, { message: "No special chars" }),
   email: z.string().email(),
   password: z
     .string()
     .min(7)
-    .regex(/^[a-zA-Z0-9_-]+$/, {
-      message: "Password can contain only letters, numbers, _ and -",
-    }),
+    .regex(/^[a-zA-Z0-9_-]+$/, { message: "Password valid chars only" }),
   role: z.enum(["user", "admin"]),
+});
+
+const updateUserSchema = z.object({
+  name: z
+    .string()
+    .min(3)
+    .max(20)
+    .regex(/^[a-zA-Z0-9]+$/, { message: "No special chars" })
+    .optional(),
+  email: z.string().email().optional(),
+  password: z
+    .string()
+    .optional()
+    .refine(
+      (val) =>
+        val === undefined ||
+        val === "" ||
+        (val.length >= 7 && /^[a-zA-Z0-9_-]+$/.test(val)),
+      {
+        message:
+          "Password must be at least 7 characters and contain only letters, numbers, _ and -",
+      }
+    ),
+  role: z.enum(["user", "admin"]).optional(),
 });
 
 const CustomerEdit = ({ type }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getAllUsers } = useAuth();
+  const { getAllUsers, token } = useAuth();
   const [usersDetails, setusersDetails] = useState({
     name: "",
     email: "",
@@ -44,17 +63,18 @@ const CustomerEdit = ({ type }) => {
   });
   const [errors, setErrors] = useState({});
 
-  console.log("CustomerEdit type =", type, "id =", typeof id);
-
   // GetData from productID
   const fectInfo = async () => {
     try {
-      const data = await getUserById(id);
+      const data = await getUserById(
+        id,
+        token || localStorage.getItem("auth-token")
+      );
       setusersDetails({
         name: data?.name || "",
         email: data?.email || "",
         password: "",
-        role: data?.role || "",
+        role: data?.role || "user",
       });
     } catch (error) {
       console.error("Failed to fetch user:", error);
@@ -65,19 +85,22 @@ const CustomerEdit = ({ type }) => {
   const updateInfo = async () => {
     Swal.fire({
       title: `${
-        type == "update"
+        id != "add"
           ? "Do you want to save the changes?"
           : "Do you want to create user?"
       }`,
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: `${type == "update" ? "Save" : "Add"}`,
+      confirmButtonText: `${id != "add" ? "Save" : "Add"}`,
       denyButtonText: `Don't save`,
     }).then(async (result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         // เรียก validate
-        const validateResult = userSchema.safeParse(usersDetails);
+        const validateResult =
+          id === "add"
+            ? createUserSchema.safeParse(usersDetails)
+            : updateUserSchema.safeParse(usersDetails);
 
         // ถ้า validate ไม่ผ่าน
         if (!validateResult.success) {
@@ -113,7 +136,13 @@ const CustomerEdit = ({ type }) => {
           if (!payload.password) delete payload.password;
 
           const required =
-            id != "add" ? updateUser(id, payload) : signUp(payload);
+            id != "add"
+              ? updateUser(
+                  id,
+                  payload,
+                  token || localStorage.getItem("auth-token")
+                )
+              : signUp(payload);
 
           await required;
           Swal.close();
@@ -122,14 +151,14 @@ const CustomerEdit = ({ type }) => {
             "",
             "success"
           );
-          getAllUsers();
+          getAllUsers(token || localStorage.getItem("auth-token"));
           navigate(-1);
         } catch (error) {
           console.log(error);
           Swal.close();
           Swal.fire(
-            `${id != "add" ? "Updated failed" : "Created failed"}!`,
-            "",
+            `${id != "add" ? "Update failed" : "Create failed"}!`,
+            error.message || "Something went wrong",
             "error"
           );
         }
@@ -161,14 +190,14 @@ const CustomerEdit = ({ type }) => {
         });
 
         try {
-          await deleteUser(id);
+          await deleteUser(id, token || localStorage.getItem("auth-token"));
           Swal.close();
           Swal.fire({
             title: "Deleted!",
             text: "User has been deleted.",
             icon: "success",
           });
-          getAllUsers();
+          getAllUsers(token || localStorage.getItem("auth-token"));
           navigate(-1);
         } catch (error) {
           console.log(error);
@@ -182,6 +211,7 @@ const CustomerEdit = ({ type }) => {
   // Function get data จาก form
   const changeHandler = (e) => {
     setusersDetails({ ...usersDetails, [e.target.name]: e.target.value });
+    console.log(usersDetails);
   };
 
   useEffect(() => {
