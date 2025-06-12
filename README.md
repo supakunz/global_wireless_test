@@ -1,56 +1,91 @@
-# Admin-Dashboard
-AdminDashboard is application an app that displays various information and manages products and users, developed using NextJS TailwindCSS MUI Axios and NextAuth for the client and MongoDB for the database.
+# E-commerce
+E-commerce Website is developed using ReactJS TailwindCSS for the client and NodeJS MongoDB for the server.
 
-https://github.com/user-attachments/assets/af5aa836-525c-4f9f-9dea-c46f560ab042
+https://github.com/user-attachments/assets/253e24fb-e4ed-4512-b321-7451d238cf99
 
-## 🎃 Live Demo 
-<a href='https://adminz-dashboard.vercel.app/' target="_blank">AdminDashboard</a>
+## 🍄 Live Demo 
+<a href='https://ecommercr.netlify.app' target="_blank">E-commerce</a>
 
-## 💀 Features
+## 🔥 Features
 
   <ul>
-      <li>Creating an API route.</li>
-      <li>Connecting and querying a MongoDB Database via an API route.</li>
-      <li>Adding a user signup API route and sending signup requests from the frontend</li>
-      <li>Working with a custom auth provider in NextAuth.js to log in users.</li>
-      <li>Hashing passwords with Bcryptjs.</li>
-      <li>Adding, editing, deleting products and users</li>
-      <li>Can display user information in the system and the quantity and price of the product.</li>
-      <li>Integrating Sweetalert2 for displaying user-friendly notifications.</li>
-      
-   
+      <li>A robust authentication system ensures user data is safeguarded and protected.</li>
+      <li>Includes a smooth scroll-to-top feature for effortless navigation and improved usability.</li>
+      <li>Supports secure and reliable payments via Stripe. Helps users to make transactions easily.</li>
+      <li>Access rights are carefully differentiated, providing distinct privileges for users and admins.</li>
+      <li>The website is fully responsive, adapting flawlessly to all devices, from desktops to smartphones.</li>
+      <li>Seamless access control is implemented via APIs, ensuring secure and efficient permission management.</li>
+      <li>An intuitive admin panel enables the addition, editing, and deletion of products and users with ease.</li>
   </ul>
 
-## 🎉 Technologyies Used
-   <i>Tools :</i>
+## 🍀 Technologyies Used
+  <i>Frontend :</i>
   <ul>
-      <li>NextJS</li>
+      <li>ReactJS</li>
+      <li>AOS</li>  
       <li>Axios</li>
-      <li>NextAuth</li>
-      <li>Sweetalert2</li>
-      <li>Material UI</li>
-      <li>Tailwind CSS</li>
+      <li>Slick</li>
+      <li>TailwindCSS</li>
+  </ul>
+  
+  <i>Backend :</i>
+  <ul>
+      <li>NodeJS</li>
+      <li>ExpressJS</li>  
   </ul>
 
   <i>Database :</i>
+  <ul>
       <li>MongoDB</li>
+  </ul>
 
-## 🐦 Installation
+  <i>Platform :</i>
+  <ul>
+      <li>Stripe</li>
+      <li>Cloudinary</li>
+  </ul>
+
+
+## ❄️ Installation
 
 1. Clone this repository :
 
 ```bash
-git clone https://github.com/SupakunZ/Admin_Dashboard.git
+git clone https://github.com/SupakunZ/E-commerce.git
 ```
 
 2. Navigate to the project folder and install dependencies :
 
 ```
-cd Admin_Dashboard
+cd E-commerce
 npm install
 ```
 
-3. Launch the application in development mode :
+3. Set up the environment variables :
+
+ - Create a `.env.local` file in the client and server root directory.
+
+ - Add the following variables to the .env file on client, replacing the placeholder values with your own:
+
+```
+VITE_APP_API = http://localhost:4000
+VITE_STRIPE_PUBLIC_KEY = <your_stripe_public_key>
+```
+
+ - Add the following variables to the .env file on server, replacing the placeholder values with your own:
+
+```
+PORT = 4000
+MONGO_URL = <your_mongoDB_url>
+CLIENT_URL = http://localhost:5173 #onLocal
+CLOUDINARY_NAME = <your_cloudinary_name>
+CLOUDINARY_API_KEY = <your_cloudinary_api_key>
+CLOUDINARY_API_SECRET = <your_cloudinary_api_secret>
+STRIPE_SECRET_KEY = <your_stripe_secret_key>
+STRIPE_ENDPOINT_SECRET = <your_stripe_endpoint_secret>
+```
+
+4. Launch the application in development mode :
 
 ```
 npm run dev
