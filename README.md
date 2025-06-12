@@ -57,6 +57,7 @@ VITE_APP_API = http://localhost:4000
 
 ```
 PORT = 4000
+CLIENT_URL = http://localhost:5174
 DATABASE_URL = "mysql://root:root@db:3306/authentication"
 JWT_SECRET = "your_jwt_secret"
 DB_HOST = db
