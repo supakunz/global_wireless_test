@@ -4,10 +4,10 @@ This project is developed using ReactJS TailwindCSS for the client and NodeJS My
 ## 🔥 Features
 
   <ul>
-     - 🔐 **Authentication & Authorization** – ระบบล็อกอิน / สมัครสมาชิก พร้อม JWT สำหรับจัดการ session
-     - 👥 **User Roles & Access Control** – กำหนดสิทธิ์การเข้าถึงตาม role เช่น admin, user
-     - 🧩 **User CRUD Management** – ฟังก์ชันเพิ่ม, ลบ, แก้ไข, และเรียกดูผู้ใช้
-     - 🚫 **Route Protection** – ป้องกันการเข้าถึง endpoint ที่ไม่ได้รับอนุญาต
+    <li>🔐 **Authentication & Authorization** – ระบบล็อกอิน / สมัครสมาชิก พร้อม JWT สำหรับจัดการ session</li>
+    <li>👥 **User Roles & Access Control** – กำหนดสิทธิ์การเข้าถึงตาม role เช่น admin, user</li>
+    <li>🧩 **User CRUD Management** – ฟังก์ชันเพิ่ม, ลบ, แก้ไข, และเรียกดูผู้ใช้</li>
+    <li>🚫 **Route Protection** – ป้องกันการเข้าถึง endpoint ที่ไม่ได้รับอนุญาต</li>
   </ul>
 
 ## 🍀 Technologyies Used
