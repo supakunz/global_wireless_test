@@ -57,9 +57,9 @@ VITE_APP_API = http://localhost:4000
 
 ```
 PORT = 4000
+CLIENT_URL = http://localhost:5174
 DATABASE_URL = "mysql://root:root@db:3306/authentication"
 JWT_SECRET = "your_jwt_secret"
-PORT = 4000
 DB_HOST = db
 DB_PORT = 3306
 ```
@@ -82,4 +82,29 @@ docker-compose up --build
 - Frontend App - `http://localhost:5174`
 
 - phpMyAdmin - `http://localhost:8080`
+
+##
+
+### 🛠️ แก้ปัญหา `entrypoint.sh: no such file or directory` บน Windows
+
+```
+exec /entrypoint.sh: no such file or directory
+```
+- ปัญหาอาจเกิดจาก entrypoint.sh ใช้ line ending แบบ Windows (CRLF) ซึ่งไม่ถูกต้องสำหรับ container ที่รันบน Linux
+
+##
+
+### ✅ วิธีแก้ใน VS Code:
+
+- เปิดไฟล์ servers/entrypoint.sh ด้วย VS Code
+
+- มองที่มุมล่างขวา → หากขึ้นว่า CRLF ให้คลิกที่มัน
+
+- เลือก LF จากเมนูที่แสดง
+
+- กด Ctrl + S เพื่อบันทึก
+
+```
+docker-compose up --build
+```
   
